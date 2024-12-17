@@ -1,0 +1,118 @@
+<section class="container">
+  <div class="d-flex gap-2 justify-content-end">
+    <app-button
+      (click)="navigateBack()"
+      label="Back"
+      className="btn btn-secondary"
+      iconClass="bi bi-arrow-left"
+    >
+      <i class="bi bi-arrow-left"></i>
+      <span class="font-15">Back</span>
+    </app-button>
+  </div>
+
+  <div class="content--container border p-3 form-container">
+    <form
+      class="row g-3"
+      appFormSubmit
+      (submit)="onSubmit()"
+      [formGroup]="registerForm"
+    >
+      <div class="col-md-4">
+        <app-input
+          label="First Name"
+          errorTitle="First Name"
+          labelClass="reg-form-label"
+          type="text"
+          title="First Name"
+          placeholder="evan"
+          [parentForm]="registerForm"
+          controlName="firstName"
+        >
+        </app-input>
+      </div>
+      <div class="col-md-4">
+        <app-input
+          label="Last Name"
+          errorTitle="Last Name"
+          labelClass="reg-form-label"
+          type="text"
+          title="Last Name"
+          placeholder="donohue"
+          [parentForm]="registerForm"
+          controlName="lastName"
+        >
+        </app-input>
+      </div>
+      <div class="col-md-4">
+        <app-input
+          label="Email"
+          labelClass="reg-form-label"
+          type="email"
+          title="Email"
+          placeholder="evan.donohue@gmail.com"
+          [parentForm]="registerForm"
+          controlName="email"
+        >
+        </app-input>
+      </div>
+      <div class="col-md-4">
+        <app-input
+          label="Date Of Birth"
+          labelClass="reg-form-label"
+          type="date"
+          placeholder="Date Of Birth"
+          title="Date Of Birth"
+          [parentForm]="registerForm"
+          controlName="dateOfBirth"
+        >
+        </app-input>
+      </div>
+      <div class="col-md-4">
+        <app-input
+          label="Phone Number"
+          labelClass="reg-form-label"
+          type="text"
+          placeholder="9865311045"
+          [parentForm]="registerForm"
+          [maxlength]="10"
+          [minlength]="10"
+          title="Phone Number"
+          controlName="phoneNumber"
+        >
+        </app-input>
+      </div>
+      <!-- <div class="col-md-4">
+        <app-drop-down
+          [parentForm]="userForm"
+          labelClass="reg-form-label"
+          label="Gender"
+          controlName="gender"
+          title="Gender"
+          [options]="genderOptions"
+        >
+        </app-drop-down>
+      </div>
+      <div>
+        <app-textarea
+          [parentForm]="userForm"
+          label="Address"
+          controlName="address"
+          labelClass="reg-form-label"
+          placeholder="Enter your address..."
+          title="Address"
+        ></app-textarea>
+      </div> -->
+      <div class="d-flex gap-2 justify-content-end">
+        <app-button
+          type="submit"
+          title="submitButtonText"
+          label="submit"
+          className="btn btn-primary"
+        >
+        </app-button>
+        <!-- <app-button label="Sign Up" className="contained-btn" type="submit" /> -->
+      </div>
+    </form>
+  </div>
+</section>

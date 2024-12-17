@@ -1,0 +1,11 @@
+<button
+  [type]="type"
+  [disabled]="disabled"
+  [title]="title"
+  [class]="className"
+  (click)="onClick()"
+>
+  @if( iconClass != '' && leftIcon){ <i [class]="iconClass"></i>}
+  {{ label }}
+  @if( iconClass != '' && !leftIcon){ <i [class]="iconClass"></i>}
+</button>
