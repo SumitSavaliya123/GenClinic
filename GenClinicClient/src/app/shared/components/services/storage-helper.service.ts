@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class StorageHelperService {
-  setAsLocal(name: string, storeString: string) {
+  setAsLocal(name: any, storeString: any) {
     localStorage.setItem(
       this.encodeString(name),
       this.encodeString(storeString)
@@ -19,11 +19,11 @@ export class StorageHelperService {
   }
 
   getFromLocal(name: string) {
-    return localStorage.getItem(this.decodeString(name));
+    return this.decodeString(localStorage.getItem(this.encodeString(name)));
   }
 
-  getFromsession(name: string) {
-    return sessionStorage.getItem(this.decodeString(name));
+  getFromSession(name: string) {
+    return this.decodeString(sessionStorage.getItem(this.encodeString(name)));
   }
 
   removeFromLocal(name: string) {
@@ -38,7 +38,7 @@ export class StorageHelperService {
     return btoa(stringData);
   }
 
-  decodeString(stringData: string | null) {
+  decodeString(stringData: string | null): string {
     if (stringData != null) {
       return atob(stringData);
     }

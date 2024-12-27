@@ -74,30 +74,30 @@ namespace GenClinic_Service.Services
 
         }
 
-        public async Task ForgotPassword(string email)
+        public async Task ForgotPassword(LoginEmailRequestDto loginEmailRequestDto)
         {
-            User user = await GetFirstOrDefaultAsync(x => x.Email == email);
+            User user = await GetFirstOrDefaultAsync(x => x.Email == loginEmailRequestDto.Email);
             if (user == null)
             {
                 throw new CustomException(StatusCodes.Status404NotFound, ErrorMessages.USER_NOT_FOUND);
             }
             MailDto mailDto = new()
             {
-                ToEmail = email,
+                ToEmail = loginEmailRequestDto.Email,
                 Subject = MailConstants.ResetPasswordSubject,
-                Body = MailBodyUtil.SendResetPasswordLink("http://localhost:4200/reset-password?token=" + EncodingMailToken(email))
+                Body = MailBodyUtil.SendResetPasswordLink("http://localhost:4200/reset-password?token=" + EncodingMailToken(loginEmailRequestDto.Email))
             };
             await _mailService.SendMailAsync(mailDto);
 
         }
 
-        public async Task ResetPassword(ResetPasswordRequestDto resetPasswordRequestDto)
+        public async Task ResetPassword(ResetPasswordRequestDto resetPasswordRequestDto, string token)
         {
-            if (String.IsNullOrEmpty(resetPasswordRequestDto.token)) throw new CustomException(StatusCodes.Status400BadRequest, MessageConstants.INVALID_TOKEN);
-            DateTime dateTime = Convert.ToDateTime(DecodingMailToken(resetPasswordRequestDto.token).Split("&")[1]);
+            if (String.IsNullOrEmpty(token)) throw new CustomException(StatusCodes.Status400BadRequest, MessageConstants.INVALID_TOKEN);
+            DateTime dateTime = Convert.ToDateTime(DecodingMailToken(token).Split("&")[1]);
             if (dateTime < DateTime.UtcNow) throw new CustomException(StatusCodes.Status410Gone, MessageConstants.TOKEN_EXPIRE);
 
-            string email = DecodingMailToken(resetPasswordRequestDto.token).Split("&")[0];
+            string email = DecodingMailToken(token).Split("&")[0];
             User user = await GetFirstOrDefaultAsync(x => x.Email == email);
             user.Password = PasswordUtil.HashPassword(resetPasswordRequestDto.password);
             await UpdateAsync(user);

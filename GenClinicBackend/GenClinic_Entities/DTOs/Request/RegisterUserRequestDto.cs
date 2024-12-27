@@ -23,7 +23,7 @@ namespace GenClinic_Entities.DTOs.Request
         public string RepeatPassword { get; set; } = null!;
 
         [Required]
-        public DateTimeOffset? DateOfBirth { get; set; }
+        public DateTimeOffset? DOB { get; set; }
 
         [Required]
         public string PhoneNumber { get; set; } = null!;

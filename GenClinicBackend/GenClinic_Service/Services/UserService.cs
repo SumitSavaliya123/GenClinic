@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using AutoMapper;
 using GenClinic_Common.Constants;
 using GenClinic_Common.Enums;
@@ -35,6 +36,7 @@ namespace GenClinic_Service.Services
             if (registerUserRequestDto.IsPatient == true)
             {
                 mappedUser.Role = UserRole.Patient;
+                await AdditionalNewPatientDetails(loggedUser, mappedUser);
             }
             else
             {
@@ -45,5 +47,25 @@ namespace GenClinic_Service.Services
             await SaveAsync();
             return mappedUser.Id;
         }
+
+        private async Task AdditionalNewPatientDetails(LoggedUser loggedUser,
+       User user)
+        {
+            user.LabId = await GetLabIdForDoctor(loggedUser.UserId);
+
+            if (user.LabId is null)
+                throw new CustomException(StatusCodes.Status404NotFound, ErrorMessages.LAB_USER_NOT_FOUND);
+
+            user.ConsultationStatus = PatientConsultationStatus.New;
+        }
+
+        private async Task<long?> GetLabIdForDoctor(long doctorId)
+        {
+            User? model = await GetFirstOrDefaultAsync(DoctorLabUserFilter(doctorId));
+            return model?.Id;
+        }
+
+        private static Expression<Func<User, bool>> DoctorLabUserFilter(long doctorId)
+       => user => user.Role == UserRole.Lab && user.DoctorId == doctorId;
     }
 }

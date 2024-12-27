@@ -6,7 +6,5 @@ namespace GenClinic_Entities.DTOs.Request
     {
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{4,}$", ErrorMessage = "Invalid password format.")]
         public string password { get; set; } = null!;
-
-        public string token { get; set; } = null!;
     }
 }

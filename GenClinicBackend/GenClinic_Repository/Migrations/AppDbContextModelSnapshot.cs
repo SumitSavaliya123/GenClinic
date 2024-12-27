@@ -41,6 +41,10 @@ namespace GenClinic_Repository.Migrations
                         .HasColumnType("varbinary(max)")
                         .HasColumnName("avatar");
 
+                    b.Property<int?>("ConsultationStatus")
+                        .HasColumnType("int")
+                        .HasColumnName("consultation_status");
+
                     b.Property<long?>("CreatedBy")
                         .HasColumnType("bigint")
                         .HasColumnName("created_by");

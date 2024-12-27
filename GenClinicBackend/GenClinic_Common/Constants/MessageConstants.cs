@@ -10,5 +10,6 @@ namespace GenClinic_Common.Constants
         public static readonly string PASSWORD_RESET = "Your Password reset successfully.";
         public static readonly string TOKEN_EXPIRE = "Your session has been expired!";
         public static readonly string INVALID_TOKEN = "Invalid Token!";
+        public static readonly string ProfileUpdated = "Profile updated successfully.";
     }
 }

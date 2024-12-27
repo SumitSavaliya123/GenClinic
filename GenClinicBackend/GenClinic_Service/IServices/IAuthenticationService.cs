@@ -10,7 +10,7 @@ namespace GenClinic_Service.IServices
 
         Task<string> VerifyOtp(long? id, LoginOtpRequestDto otpData);
 
-        Task ForgotPassword(string email);
-        Task ResetPassword(ResetPasswordRequestDto resetPasswordRequestDto);
+        Task ForgotPassword(LoginEmailRequestDto loginEmailRequestDto);
+        Task ResetPassword(ResetPasswordRequestDto resetPasswordRequestDto, string token);
     }
 }
