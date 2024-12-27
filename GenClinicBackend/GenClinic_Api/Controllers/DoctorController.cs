@@ -9,6 +9,7 @@ namespace GenClinic_Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [DoctorPolicy]
     public class DoctorController : ControllerBase
     {
         private readonly IUserService _userService;

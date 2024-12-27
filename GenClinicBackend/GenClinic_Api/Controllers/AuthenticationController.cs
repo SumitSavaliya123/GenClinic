@@ -33,17 +33,24 @@ namespace GenClinic_Api.Controllers
             return ResponseHelper.SuccessResponse(await _authenticationService.VerifyOtp(null, otpData), MessageConstants.LOGIN_SUCCESS);
         }
 
-        [HttpPost("forgot-password")]
-        public async Task<IActionResult> ForgotPassword(string email)
+        [HttpPost("resend-otp")]
+        public async Task<IActionResult> ResendOtp(LoginEmailRequestDto loginEmailRequestDto)
         {
-            await _authenticationService.ForgotPassword(email);
+            await _authenticationService.SendOtp(null, loginEmailRequestDto.Email, SystemConstants.AuthenticationOtp);
+            return ResponseHelper.SuccessResponse(MessageConstants.MAIL_SENT);
+        }
+
+        [HttpPost("forgot-password")]
+        public async Task<IActionResult> ForgotPassword(LoginEmailRequestDto loginEmailRequestDto)
+        {
+            await _authenticationService.ForgotPassword(loginEmailRequestDto);
             return ResponseHelper.SuccessResponse(MessageConstants.MAIL_SENT);
         }
 
         [HttpPost("reset-password")]
-        public async Task<IActionResult> ResetPassword(ResetPasswordRequestDto resetPasswordRequestDto)
+        public async Task<IActionResult> ResetPassword(ResetPasswordRequestDto resetPasswordRequestDto, string token)
         {
-            await _authenticationService.ResetPassword(resetPasswordRequestDto);
+            await _authenticationService.ResetPassword(resetPasswordRequestDto, token);
             return ResponseHelper.SuccessResponse(MessageConstants.PASSWORD_RESET);
         }
     }

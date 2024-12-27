@@ -62,5 +62,8 @@ namespace GenClinic_Entities.DataModels
         [ForeignKey(nameof(DoctorId))]
         public virtual User DoctorUsers { get; set; } = null!;
 
+        [Column("consultation_status")]
+        public PatientConsultationStatus? ConsultationStatus { get; set; }
+
     }
 }

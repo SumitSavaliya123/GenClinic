@@ -9,6 +9,10 @@ namespace GenClinic_Common.Constants
 
         public const string INVALID_USER = "Email or Password is incorrect!";
 
+        public const string EMAIL_ALREADY_EXIST = "User already exists. Please try with other email.";
+
+        public const string LAB_USER_NOT_FOUND = "Lab user is not exists!";
+
         public static class ExceptionMessage
         {
             public const string INTERNAL_SERVER = "An error occurred while processing the request";

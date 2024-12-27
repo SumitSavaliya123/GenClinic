@@ -80,6 +80,7 @@ namespace GenClinic_Api.Extensions
         {
             services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IProfileRepository, ProfileRepository>();
         }
 
         public static void ConfigureCors(this IServiceCollection services)
@@ -87,9 +88,10 @@ namespace GenClinic_Api.Extensions
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
-                    builder => builder.AllowAnyOrigin()
+                    builder => builder.WithOrigins("http://localhost:4200")
                     .AllowAnyMethod()
                     .AllowAnyHeader()
+                    .AllowCredentials()
                   );
             });
         }
